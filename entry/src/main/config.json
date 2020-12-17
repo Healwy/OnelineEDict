@@ -17,7 +17,7 @@
     "package": "com.example.onelineedict",
     "name": ".MyApplication",
     "deviceType": [
-      "phone"
+      "phone","tablet"
     ],
     "distro": {
       "deliveryWithInstall": true,
@@ -40,7 +40,7 @@
         "name": "com.example.onelineedict.MainAbility",
         "icon": "$media:icon",
         "description": "$string:mainability_description",
-        "label": "OnelineEDict",
+        "label": "在线电子词典",
         "type": "page",
         "launchType": "standard"
       }
