@@ -17,7 +17,8 @@
     "package": "com.example.onelineedict",
     "name": ".MyApplication",
     "deviceType": [
-      "phone","tablet"
+      "tv",
+      "tablet"
     ],
     "distro": {
       "deliveryWithInstall": true,

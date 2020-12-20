@@ -3,16 +3,51 @@
     xmlns:ohos="http://schemas.huawei.com/res/ohos"
     ohos:height="match_parent"
     ohos:width="match_parent"
-    ohos:orientation="vertical">
+    ohos:end_padding="200vp"
+    ohos:orientation="vertical"
+    ohos:start_padding="200vp">
+
+    <DirectionalLayout
+        ohos:height="50vp"
+        ohos:width="match_parent"
+        ohos:orientation="horizontal"
+        ohos:top_margin="50vp">
+
+        <TextField
+            ohos:height="match_parent"
+            ohos:width="match_parent"
+            ohos:background_element="$graphic:text_field_border"
+            ohos:hint="请输入要查询的单词"
+            ohos:multiple_lines="false"
+            ohos:text_size="20vp"
+            ohos:weight="1"/>
+
+        <Image
+            ohos:height="30vp"
+            ohos:width="100vp"
+            ohos:image_src="$media:search_word"
+            ohos:layout_alignment="vertical_center"
+            ohos:scale_mode="zoom_center"/>
+
+    </DirectionalLayout>
 
     <Text
-        ohos:id="$+id:text_helloworld"
-        ohos:height="match_content"
-        ohos:width="match_content"
-        ohos:background_element="$graphic:background_ability_main"
-        ohos:layout_alignment="horizontal_center"
-        ohos:text="Hello World"
-        ohos:text_size="50"
-    />
+        ohos:id="$+id:text_search_result"
+        ohos:height="match_parent"
+        ohos:width="match_parent"
+        ohos:multiple_lines="true"
+        ohos:text_alignment="left|top"
+        ohos:text_size="20vp"
+        ohos:top_margin="40vp"
+        ohos:visibility="hide"/>
+
+    <Image
+        ohos:id="$+id:image"
+        ohos:height="match_parent"
+        ohos:width="600vp"
+        ohos:image_src="$media:healwy_logo"
+        ohos:layout_alignment="center"
+        ohos:padding="60vp"
+        ohos:scale_mode="zoom_center"/>
 
 </DirectionalLayout>
