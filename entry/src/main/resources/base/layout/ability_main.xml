@@ -14,6 +14,7 @@
         ohos:top_margin="50vp">
 
         <TextField
+            ohos:id="$+id:text_field_word"
             ohos:height="match_parent"
             ohos:width="match_parent"
             ohos:background_element="$graphic:text_field_border"
@@ -23,8 +24,10 @@
             ohos:weight="1"/>
 
         <Image
+            ohos:id="$+id:image_search"
             ohos:height="30vp"
             ohos:width="100vp"
+            ohos:clickable="true"
             ohos:image_src="$media:search_word"
             ohos:layout_alignment="vertical_center"
             ohos:scale_mode="zoom_center"/>
@@ -42,7 +45,7 @@
         ohos:visibility="hide"/>
 
     <Image
-        ohos:id="$+id:image"
+        ohos:id="$+id:image_logo"
         ohos:height="match_parent"
         ohos:width="600vp"
         ohos:image_src="$media:healwy_logo"
