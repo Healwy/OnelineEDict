@@ -7,8 +7,8 @@
       "name": "1.0"
     },
     "apiVersion": {
-      "compatible": 4,
-      "target": 4,
+      "compatible": 3,
+      "target": 3,
       "releaseType": "Beta1"
     }
   },
@@ -16,9 +16,22 @@
   "module": {
     "package": "com.example.onelineedict",
     "name": ".MyApplication",
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.INTERNET",
+        "reason": "internet",
+        "usedScene": {
+          "ability": [
+            "com.example.onelineedict.MainAbility"
+          ],
+          "when": "always"
+        }
+      }
+    ],
     "deviceType": [
       "tv",
-      "tablet"
+      "tablet",
+      "wearable"
     ],
     "distro": {
       "deliveryWithInstall": true,

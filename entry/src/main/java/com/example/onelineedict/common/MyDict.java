@@ -7,6 +7,10 @@ import ohos.data.rdb.RdbStore;
 import ohos.data.rdb.StoreConfig;
 import ohos.data.resultset.ResultSet;
 import ohos.global.resource.Resource;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,6 +18,60 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+class AsyncSearchWord extends Thread {
+    private String mWord;
+    private RdbStore mRdbstore;
+    private SearchWordCallback mCallback;
+
+    public AsyncSearchWord(String word, RdbStore store, SearchWordCallback callback) {
+        this.mWord = word;
+        this.mRdbstore = store;
+        this.mCallback = callback;
+    }
+
+    @Override
+    public void run() {
+        super.run();
+        try {
+            // 获取搜索结果（HTML形式）
+            Document doc = Jsoup.connect("https://www.iciba.com/word?w=" + mWord).get();
+            Elements ulElements = doc.getElementsByClass("Mean_part__1RA2V");
+            // 将网络单词信息保存到本地的SQL语句
+            String insertSQL = "insert into t_words(word, type, meanings) values(?,?,?);";
+            List<WordData> wordDataList = new ArrayList<>();
+            for (Element ulElement : ulElements) {
+                // 获取单词的每一个词性和中文解释
+                Elements liElements = ulElement.getElementsByTag("li");
+                // 对每一个词性进行迭代
+                for (Element liElement : liElements) {
+                    WordData wordData = new WordData();
+                    Elements iElements = liElement.getElementsByTag("i");
+                    for (Element iElement : iElements) {
+                        // 获取当前词性
+                        wordData.type = iElement.text();
+                        break;
+                    }
+                    // 获取中文解释
+                    Elements divElements = liElement.getElementsByTag("div");
+                    for (Element divElement : divElements) {
+                        wordData.meanings = divElement.text();   // 提取词性对应的中文解释
+                        break;
+                    }
+                    wordDataList.add(wordData);
+                    mRdbstore.executeSql(
+                            insertSQL, new String[]{mWord, wordData.type, wordData.meanings});
+                }
+                break;
+            }
+            if (mCallback != null) {
+                mCallback.onResult(wordDataList);
+            }
+        } catch (Exception e) {
+            // Noop
+        }
+    }
+}
 
 public class MyDict {
     private AbilityContext mContext;
@@ -78,5 +136,12 @@ public class MyDict {
             list.add(wordData);
         }
         return list;
+    }
+
+    // 异步搜索网络词典
+    public void searchWebDict(String word, SearchWordCallback callback) {
+        word = word.toLowerCase();
+        // 异步搜索
+        new AsyncSearchWord(word, mRdbStore, callback).start();
     }
 }
