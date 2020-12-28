@@ -16,6 +16,18 @@
   "module": {
     "package": "com.example.onelineedict",
     "name": ".MyApplication",
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.INTERNET",
+        "reason": "internet",
+        "usedScene": {
+          "ability": [
+            "com.example.onelineedict.MainAbility"
+          ],
+          "when": "always"
+        }
+      }
+    ],
     "deviceType": [
       "tv",
       "tablet"
