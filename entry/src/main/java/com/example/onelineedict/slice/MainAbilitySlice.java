@@ -4,6 +4,7 @@ import com.example.onelineedict.ResourceTable;
 import com.example.onelineedict.common.MyDict;
 import com.example.onelineedict.common.SearchWordCallback;
 import com.example.onelineedict.common.WordData;
+import com.example.onelineedict.utils.DeviceUtils;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Component;
@@ -30,7 +31,11 @@ public class MainAbilitySlice extends AbilitySlice {
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
-        super.setUIContent(ResourceTable.Layout_ability_main);
+        if (DeviceUtils.isTv()) {
+            super.setUIContent(ResourceTable.Layout_ability_main);
+        } else {
+            super.setUIContent(ResourceTable.Layout_ability_main_wearable);
+        }
         mMyDict = new MyDict(this);
         try {
             mMyDict.init();
