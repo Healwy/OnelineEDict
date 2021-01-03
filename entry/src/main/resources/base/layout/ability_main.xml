@@ -28,6 +28,7 @@
             ohos:height="30vp"
             ohos:width="100vp"
             ohos:clickable="true"
+            ohos:enabled="false"
             ohos:image_src="$media:search_word"
             ohos:layout_alignment="vertical_center"
             ohos:scale_mode="zoom_center"/>
